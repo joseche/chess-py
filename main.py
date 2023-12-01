@@ -1,12 +1,16 @@
-import pygame
+import os
 
-from boards import random_board_theme
+os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "hide"
+
+import pygame
+from boards import GreenBoard, random_board_theme
 from pieces import Pawn
 
 
 def main(screen):
     board_theme = random_board_theme()
     b = board_theme(screen)
+    # b = GreenBoard(screen=screen)
     b.drawBoard()
     clock = pygame.time.Clock()
     while True:
@@ -15,7 +19,7 @@ def main(screen):
                 pygame.quit()
                 quit()
             if event.type == pygame.VIDEORESIZE:
-                b = board_theme(screen, window_width=event.w, window_height=event.h)
+                b.adjustSize(event.w, event.h)
                 b.drawBoard()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_q:
