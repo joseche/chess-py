@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "chess-py"
+version = "0.1.0"
+description = "Chess in python"
+authors = ["Jose Hidalgo <joseche@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pygame = "^2.5.2"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.1.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

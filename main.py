@@ -1,16 +1,16 @@
 import os
 
-os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "hide"
-
 import pygame
-from boards import GreenBoard, random_board_theme
+
+from boards import random_board_theme
 from pieces import Pawn
+
+os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "hide"
 
 
 def main(screen):
     board_theme = random_board_theme()
     b = board_theme(screen)
-    # b = GreenBoard(screen=screen)
     b.drawBoard()
     clock = pygame.time.Clock()
     while True:

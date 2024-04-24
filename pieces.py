@@ -1,10 +1,13 @@
-from enum import Enum
 import logging as log
-from boards import DefaultBoard
+from enum import Enum, unique
+
+# import pygame
 from pygame import Surface
-import pygame
+
+from boards import DefaultBoard
 
 
+@unique
 class PieceTypes(Enum):
     PAWN = "Pawn"
     ROOK = "Rook"
@@ -14,12 +17,14 @@ class PieceTypes(Enum):
     KING = "King"
 
 
+@unique
 class PieceColor(Enum):
     WHITE = "White"
     BLACK = "Black"
 
 
 class Piece:
+
     def __init__(self) -> None:
         self.c_rank: int = 1
         self.c_file: int = 1
@@ -49,19 +54,23 @@ class Pawn(Piece):
 
     def draw(self, screen: Surface, b: DefaultBoard):
         log.info("inside draw")
-        if self.img_black == None:
+        if self.img_black is None:
             log.info("class prop is None, so,,, loading images")
             Pawn.load_images(b)
-        screen.blit(Pawn.img_black, (b.cellPosX(self.c_file), b.cellPosY(self.c_rank)))
+        screen.blit(
+            Pawn.img_black, (b.cellPosX(self.c_file), b.cellPosY(self.c_rank))
+        )
 
 
 class Rook(Piece):
+
     def __init__(self) -> None:
         super().__init__()
         self.c_type = PieceTypes.ROOK
 
 
 class Knight(Piece):
+
     def __init__(self) -> None:
         super().__init__()
         self.c_type = PieceTypes.KNIGHT

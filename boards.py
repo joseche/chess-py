@@ -1,8 +1,7 @@
-from calendar import c
-from pygame import Surface
 from random import randrange
 
 import pygame
+from pygame import Surface
 
 
 class DefaultBoard:
@@ -75,7 +74,11 @@ class DefaultBoard:
                 letter = self.board_font.render(
                     c_file_letter,
                     True,
-                    self.board_color_black if is_white else self.board_color_white,
+                    (
+                        self.board_color_black
+                        if is_white
+                        else self.board_color_white
+                    ),
                 )
                 self.screen.blit(
                     letter,
@@ -94,7 +97,11 @@ class DefaultBoard:
                 number = self.board_font.render(
                     c_rank_number,
                     True,
-                    self.board_color_black if is_white else self.board_color_white,
+                    (
+                        self.board_color_black
+                        if is_white
+                        else self.board_color_white
+                    ),
                 )
                 self.screen.blit(
                     number,
@@ -140,6 +147,7 @@ class DefaultBoard:
 
 
 class BlueBoard(DefaultBoard):
+
     def __init__(
         self,
         screen: Surface,
@@ -159,6 +167,7 @@ class BlueBoard(DefaultBoard):
 
 
 class GreenBoard(DefaultBoard):
+
     def __init__(
         self,
         screen: Surface,
@@ -178,6 +187,7 @@ class GreenBoard(DefaultBoard):
 
 
 class BrownBoard(DefaultBoard):
+
     def __init__(
         self,
         screen: Surface,
