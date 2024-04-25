@@ -4,6 +4,8 @@ version = "0.1.0"
 description = "Chess in python"
 authors = ["Jose Hidalgo <joseche@gmail.com>"]
 readme = "README.md"
+packages = [{include = "chess_py"}]
+
 
 [tool.poetry.dependencies]
 python = "^3.11"
