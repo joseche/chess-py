@@ -10,6 +10,8 @@ packages = [{include = "chess_py"}]
 [tool.poetry.dependencies]
 python = "^3.11"
 pygame = "^2.5.2"
+ruff = "^0.4.2"
+pylint-venv = "^3.0.3"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.1.1"
@@ -17,3 +19,6 @@ pytest = "^8.1.1"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pylint]
+disable = "missing-class-docstring,missing-function-docstring,missing-module-docstring,no-member,import-error"

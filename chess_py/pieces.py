@@ -1,10 +1,9 @@
 import logging as log
+from abc import abstractmethod
 from enum import Enum, unique
 
-# import pygame
-from pygame import Surface
-
 from boards import DefaultBoard
+from pygame import Surface
 
 
 @unique
@@ -31,16 +30,18 @@ class Piece:
         self.c_type: PieceTypes = PieceTypes.PAWN
         self.c_color: PieceColor = PieceColor.WHITE
 
+    @abstractmethod
     def move(self, row: int, col: int):
-        raise NotImplementedError("abstract method to be implemented")
+        pass
 
-    def draw(self):
-        raise NotImplementedError("abstract method to be implemented")
+    @abstractmethod
+    def draw(self, screen: Surface, b: DefaultBoard):
+        pass
 
 
 class Pawn(Piece):
-    img_black: Surface = None
-    img_white: Surface = None
+    img_black: Surface
+    img_white: Surface
 
     def __init__(self) -> None:
         super().__init__()
@@ -54,12 +55,11 @@ class Pawn(Piece):
 
     def draw(self, screen: Surface, b: DefaultBoard):
         log.info("inside draw")
-        if self.img_black is None:
+        if Pawn.img_black is None:
             log.info("class prop is None, so,,, loading images")
             Pawn.load_images(b)
-        screen.blit(
-            Pawn.img_black, (b.cellPosX(self.c_file), b.cellPosY(self.c_rank))
-        )
+        screen.blit(Pawn.img_black,
+                    (b.cell_pos_x(self.c_file), b.cell_pos_y(self.c_rank)))
 
 
 class Rook(Piece):
