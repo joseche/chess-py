@@ -1,8 +1,12 @@
+import logging
 from random import randint, randrange, uniform
 
 import pygame
 from pygame import Surface
 
+from chess_py.media_manager import MediaManager
+
+logger = logging.getLogger(__name__)
 NOISE_PCT: float = uniform(0.05, 0.2)
 
 
@@ -16,16 +20,19 @@ class DefaultBoard:
             board_color_white: tuple = (236, 244, 214),
             board_color_black: tuple = (45, 149, 150),
     ):
+        logger.debug("initializing %s", self)
         self.screen = screen
         self.border_color = border_color
         self.board_color_white = board_color_white
         self.board_color_black = board_color_black
         self.flipped = False
         self.cell_coords = True
+        self.media = MediaManager()
         self.adjust_size(window_width=screen.get_width(),
                          window_height=screen.get_height())
 
     def adjust_size(self, window_width: int, window_height: int):
+        logger.debug("adjusting size of board: %s", self)
         self.window_width = window_width
         self.window_height = window_height
         self.cell_length = min(window_width, window_height) / 9
@@ -36,6 +43,7 @@ class DefaultBoard:
         self.board_font = pygame.font.SysFont("Comic Sans MS",
                                               int(self.cell_length / 6),
                                               bold=True)
+        self.media.resize_images(self.cell_length)
 
     def cell_pos_x(self, col: int = 1) -> int:
         return int((col - 1) * self.cell_length + (0.5 * self.cell_length))
@@ -64,6 +72,7 @@ class DefaultBoard:
             x = randint(top_x, top_x + int(self.cell_length))
             y = randint(top_y, top_y + int(self.cell_length))
             self.screen.set_at((x, y), self._noise_color())
+        # end of noise
 
     def draw_black_cell(self, top_x: int, top_y: int):
         self.screen.fill(
@@ -79,6 +88,11 @@ class DefaultBoard:
             self.screen.set_at((x, y), self._noise_color())
 
     def draw_cell_coords(self):
+        """
+        Draw the a-h and 1-8 in the bottom and right cells
+        """
+
+        # first draw the letters in the last file
         c_rank = 8
         y_pos = self.cell_pos_y(c_rank)
         c_file = 1
@@ -101,6 +115,7 @@ class DefaultBoard:
             )
             c_file += 1
 
+        # draw the number is the last column
         c_rank = 1
         c_file = 8
         x_pos = self.cell_pos_x(c_file)
@@ -139,11 +154,6 @@ class DefaultBoard:
             c_file += 1
         self.draw_cell_coords()
         pygame.display.update()
-
-    def load_piece_image(self, filename: str):
-        img_length = int((self.cell_length / 10) * 8)
-        img_raw = pygame.image.load(filename)
-        return pygame.transform.scale(img_raw, (img_length, img_length))
 
 
 class BlueBoard(DefaultBoard):

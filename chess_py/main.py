@@ -2,14 +2,16 @@
 Entrypoint for chess
 """
 
+import logging
 import os
 import sys
 
 import pygame
-from boards import random_board_theme
-from pieces import Pawn
+from guiboards import random_board_theme
 
 os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "hide"
+
+logging.basicConfig(format="%(levelname)s:%(message)s", level=logging.DEBUG)
 
 
 def main(screen):
@@ -30,11 +32,11 @@ def main(screen):
                 if event.key == pygame.K_q:
                     pygame.quit()
                     sys.exit()
-                if event.key == pygame.K_p:
-                    p = Pawn()
-                    p.c_file = 2
-                    p.c_rank = 2
-                    p.draw(screen, b)
+                # if event.key == pygame.K_p:
+                #     p = Pawn()
+                #     p.c_file = 2
+                #     p.c_rank = 2
+                #     p.draw(screen, b)
 
         pygame.display.update()
         clock.tick(60)

@@ -21,4 +21,4 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.pylint]
-disable = "missing-class-docstring,missing-function-docstring,missing-module-docstring,no-member,import-error"
+disable = "missing-class-docstring,missing-function-docstring,missing-module-docstring,no-member,import-error,too-many-instance-attributes"
