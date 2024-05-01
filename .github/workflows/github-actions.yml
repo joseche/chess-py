@@ -38,9 +38,4 @@ jobs:
       - name: Run tests
         run: |
           source .venv/bin/activate
-          pytest --junitxml=pytest.xml  -W ignore::DeprecationWarning --cov=chess_py tests/ | tee pytest-coverage.txt
-      - name: Pytest coverage comment
-        uses: MishaKav/pytest-coverage-comment@main
-        with:
-          pytest-coverage-path: ./pytest-coverage.txt
-          junitxml-path: ./pytest.xml
+          pytest -W ignore::DeprecationWarning --cov=chess_py tests/
