@@ -38,4 +38,9 @@ jobs:
       - name: Run tests
         run: |
           source .venv/bin/activate
-          pytest -W ignore::DeprecationWarning --cov=chess_py tests/
+          pytest -W ignore::DeprecationWarning --junitxml=test-results.xml --cov=chess_py tests/
+      - name: Test Summary
+        uses: test-summary/action@v2
+        with:
+          paths: "test-results.xml"
+        if: always()
